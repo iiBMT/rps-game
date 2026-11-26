@@ -18,27 +18,35 @@ function getHumanChoice() {
 function playGame(rounds) {
     let humanScore = 0
     let computerScore = 0
-    for (let round = 0; round < rounds; round++) {
-        function playRound(humanChoice, computerChoice) {
-            if (humanChoice === computerChoice) {
-                return console.log("Its a tie");
-            }
-            if (
-                (humanChoice === 0 && computerChoice === 1) ||
-                (humanChoice === 1 && computerChoice === 2) ||
-                (humanChoice === 2 && computerChoice === 0)
-            ) {
-                computerScore = computerScore++
-                return console.log("You lose!");
-            }
-            humanScore = humanScore++
-            return console.log("You win!");
+    function playRound(humanChoice, computerChoice) {
+        if (humanChoice === computerChoice) {
+            computerScore++
+            humanScore++
+            console.log("Its a tie");
+        } else if (
+            (humanChoice === 0 && computerChoice === 1) ||
+            (humanChoice === 1 && computerChoice === 2) ||
+            (humanChoice === 2 && computerChoice === 0)
+        ) {
+            computerScore++
+            console.log("You lose!");
+        } else { 
+        humanScore++
+        console.log("You win!");
         }
+    }
+    for (let round = 0; round < rounds; round++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
         playRound(humanSelection, computerSelection);
     }
+    if (humanScore > computerScore) {
+        alert("You win! the final score was " + humanScore + " - " + computerScore);
+    } else if (humanScore < computerScore) {
+        alert("You lose! the final score was " + computerScore + " - " + humanScore);
+    } else if (humanScore === computerScore) {
+        alert("It was a tie! the final score was " + computerScore + " = " + humanScore);
+    }
 }
-
-
-playGame(5);
+let roundsNumber = parseInt(prompt("Pick how many rounds -- pls less then (2^53 - 1) so we dont brake js :)"));
+playGame(roundsNumber);
